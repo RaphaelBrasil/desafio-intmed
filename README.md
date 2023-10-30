@@ -2,7 +2,7 @@
 
 Projeto de sistema de agendamento de consultas medicas.
 
-Desenvolvido como desafio para vaga de desenvolvedor Intmed, mais informações do desafio [aqui](https://github.com/Intmed-Software/desafio).
+Desenvolvido como desafio para vaga de desenvolvedor Intmed, outras informações sobre o desafio [aqui](https://github.com/Intmed-Software/desafio).
 
 Frontend desenvolvido com React 18.2.0;
 
