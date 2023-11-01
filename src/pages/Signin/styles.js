@@ -9,7 +9,7 @@ export const Container = styled.div`
 	height: 100vh;
 `;
 
-export const Content = styled.div`
+export const FormContent = styled.form`
 	gap: 15px;
 	display: flex;
 	align-items: center;

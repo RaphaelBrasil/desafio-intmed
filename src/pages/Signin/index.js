@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Logo from "../../assets/logo.png";
@@ -9,28 +10,29 @@ import useAuth from "../../hooks/useAuth";
 const Signin = () => {
 	const { signin } = useAuth();
 	const navigate = useNavigate();
-
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [error, setError] = useState("");
-	const [rememberMe, setRememberMe] = useState(false);
+	const {
+		register,
+		handleSubmit,
+		setError,
+		formState: { errors }
+	} = useForm();
 	const [showPassword, setShowPassword] = useState(false);
+	const [output, setOutput] = useState("");
 
 	const handleTogglePassword = () => {
 		setShowPassword(!showPassword);
 	};
 
-	const handleLogin = async () => {
-		if (!email || !password) {
-			setError("Preencha todos os campos");
-			return;
-		}
-
+	const onSubmit = async (data) => {
 		try {
-			await signin(email, password);
+			setOutput(JSON.stringify(data, null, 3));
+			await signin(data.email, data.password);
 			navigate("/home");
 		} catch (err) {
-			setError("E-mail ou senha incorretos");
+			setError("password", {
+				message: "E-mail ou senha incorretos"
+			});
+			setOutput(JSON.stringify(errors));
 		}
 	};
 
@@ -40,46 +42,40 @@ const Signin = () => {
 
 	return (
 		<S.Container>
-			<S.Content>
+			<S.FormContent onSubmit={handleSubmit(onSubmit)}>
 				<S.Img src={Logo} alt="Logo" />
 				<Input
-					type="email"
+					type="text"
 					placeholder="Email ou Login"
-					value={email}
-					onChange={(e) => [setEmail(e.target.value), setError("")]}
+					{...register("email")}
 				/>
+
 				<Input
 					type="password"
 					placeholder="Senha"
-					value={password}
-					onChange={(e) => [
-						setPassword(e.target.value),
-						setError("")
-					]}
+					{...register("password")}
 					showPassword={showPassword}
 					onClick={handleTogglePassword}
 				/>
 
 				<S.CheckContainer>
-					<Input
-						type="checkbox"
-						checked={rememberMe}
-						onChange={(e) => setRememberMe(e.target.checked)}
-					/>
+					<Input type="checkbox" {...register("rememberMe")} />
 					<S.Label>Lembrar minha senha</S.Label>
 				</S.CheckContainer>
 
-				<S.LabelError>{error}</S.LabelError>
+				<S.LabelError>{errors.password?.message}</S.LabelError>
 
 				<S.ButtonContainer>
 					<Button
 						text="Criar Conta"
+						type="button"
 						onClick={handleSignup}
-						type="secondary"
+						theme="secondary"
 					/>
-					<Button text="Acessar" onClick={handleLogin} />
+					<Button text="Acessar" type="submit" />
 				</S.ButtonContainer>
-			</S.Content>
+			</S.FormContent>
+			<pre>{output}</pre>
 		</S.Container>
 	);
 };

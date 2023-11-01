@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import Home from "../pages/Home";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
+import Teste from "../pages/Teste";
 
 const PrivateRoute = ({ children }) => {
 	const { signed } = useAuth();
@@ -22,6 +23,7 @@ const RoutesApp = () => {
 					}
 				/>
 				<Route path="/signup" element={<Signup />} />
+				<Route path="/teste" element={<Teste />} />
 				<Route path="*" element={<Signin />} />
 			</Routes>
 		</BrowserRouter>

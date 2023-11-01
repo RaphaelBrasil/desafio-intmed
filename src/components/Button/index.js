@@ -4,12 +4,13 @@ import * as S from "./styles";
 const Button = ({
 	text,
 	onClick,
-	type = "primary",
+	type,
+	theme = "primary",
 	icon = <></>,
 	size = "big"
 }) => {
 	return (
-		<S.Button type={type} size={size} onClick={onClick}>
+		<S.Button type={type} size={size} onClick={onClick} theme={theme}>
 			{icon}
 			{text}
 		</S.Button>

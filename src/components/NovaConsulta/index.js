@@ -169,10 +169,14 @@ const NovaConsulta = ({ options, setIsOpen, fetchData }) => {
 				<S.ButtonWrapper>
 					<Button
 						text="Cancelar"
-						type="secondary"
+						theme="secondary"
 						onClick={handleCancelar}
 					/>
-					<Button text="Confirmar" onClick={handleConfirmar} />
+					<Button
+						text="Confirmar"
+						type="submit"
+						onClick={handleConfirmar}
+					/>
 				</S.ButtonWrapper>
 			</S.SelectWrapper>
 		</S.PopoverContent>

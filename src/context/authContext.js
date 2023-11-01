@@ -1,5 +1,8 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import axios from "../api/axios";
+import authInterceptor from "../services/authInterceptor";
+
+authInterceptor();
 
 export const AuthContext = createContext({});
 
@@ -7,14 +10,6 @@ export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const LOGIN_URL = "users/login";
 	const SIGNUP_URL = "users";
-
-	useEffect(() => {
-		const userToken = localStorage.getItem("user_token");
-		if (userToken) {
-			const { username, accessToken } = JSON.parse(userToken);
-			setUser({ username, accessToken });
-		}
-	}, []);
 
 	const signin = async (username, password) => {
 		try {

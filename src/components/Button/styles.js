@@ -10,21 +10,21 @@ export const Button = styled.button`
 	font-weight: ${(props) => (props.size === "small" ? "" : "700")};
 	font-size: ${(props) => (props.size === "small" ? "15px" : "18px")};
 	background-color: ${(props) =>
-		props.type === "secondary"
+		props.theme === "secondary"
 			? "white"
-			: props.type === "transparent"
+			: props.theme === "transparent"
 			? "transparent"
 			: "#49b4bb"};
 	color: ${(props) =>
-		props.type === "secondary" || props.type === "transparent"
+		props.theme === "secondary" || props.theme === "transparent"
 			? "#49b4bb"
 			: "white"};
 
 	&:hover {
 		background-color: ${(props) =>
-			props.type === "secondary"
+			props.theme === "secondary"
 				? "#D9F1F3"
-				: props.type === "transparent"
+				: props.theme === "transparent"
 				? "transparent"
 				: "#90D3D7"};
 	}

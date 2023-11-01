@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./styles";
 
-const Input = ({ type, placeholder, value, onChange }) => {
+const MyForwardedInput = (
+	{ type, placeholder, name, value, onChange },
+	ref
+) => {
 	const [showPassword, setShowPassword] = useState(false);
 
-	const handleTogglePassword = () => {
+	const handleTogglePassword = (e) => {
+		e.preventDefault();
 		setShowPassword(!showPassword);
 	};
 
@@ -23,7 +27,9 @@ const Input = ({ type, placeholder, value, onChange }) => {
 				<></>
 			)}
 			<S.Input
+				ref={ref}
 				value={value}
+				name={name}
 				onChange={onChange}
 				type={type === "password" && showPassword ? "text" : type}
 				placeholder={placeholder}
@@ -31,5 +37,7 @@ const Input = ({ type, placeholder, value, onChange }) => {
 		</S.Wrapper>
 	);
 };
+
+export const Input = forwardRef(MyForwardedInput);
 
 export default Input;
