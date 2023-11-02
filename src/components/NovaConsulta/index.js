@@ -3,7 +3,7 @@ import * as S from "./styles";
 import Button from "../../components/Button";
 import { ConsultaService } from "../../services/consultaService";
 
-const NovaConsulta = ({ options, setIsOpen, fetchData }) => {
+const NovaConsulta = ({ fetchData }) => {
 	const [selectedEspecialidade, setSelectedEspecialidade] = useState("");
 	const [selectedMedico, setSelectedMedico] = useState("");
 	const [selectedDia, setSelectedDia] = useState("");
@@ -43,12 +43,7 @@ const NovaConsulta = ({ options, setIsOpen, fetchData }) => {
 
 	const handleConfirmar = async () => {
 		try {
-			const userToken = JSON.parse(localStorage.getItem("user_token"));
-			await ConsultaService.createConsulta(
-				userToken,
-				selectedDia,
-				selectedHorario
-			);
+			await ConsultaService.createConsulta(selectedDia, selectedHorario);
 			fetchData();
 		} catch (error) {
 			console.error(error);
@@ -65,25 +60,19 @@ const NovaConsulta = ({ options, setIsOpen, fetchData }) => {
 
 	useEffect(() => {
 		try {
-			const userToken = JSON.parse(localStorage.getItem("user_token"));
-
 			const fetchEspecialidades = async () => {
 				const especialidadesData =
-					await ConsultaService.fetchEspecialidades(userToken);
+					await ConsultaService.fetchEspecialidades();
 				setEspecialidades(especialidadesData);
 			};
 
 			const fetchMedicos = async () => {
-				const medicosData = await ConsultaService.fetchMedicos(
-					userToken
-				);
+				const medicosData = await ConsultaService.fetchMedicos();
 				setMedicos(medicosData);
 			};
 
 			const fetchAgendas = async () => {
-				const agendasData = await ConsultaService.fetchAgendas(
-					userToken
-				);
+				const agendasData = await ConsultaService.fetchAgendas();
 				setAgendas(agendasData);
 			};
 

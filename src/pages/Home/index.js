@@ -15,6 +15,10 @@ import Logo from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
 import * as S from "./styles";
 
+function capitalizeFirstLetter(string) {
+	return string.replace(/^\w/, (match) => match.toUpperCase());
+}
+
 const Home = () => {
 	const columns = [
 		{
@@ -93,7 +97,7 @@ const Home = () => {
 			<S.Content>
 				<S.Header>
 					<S.Img src={Logo} alt="Logo" />
-					<S.Label>{user}</S.Label>
+					<S.Label>{capitalizeFirstLetter(user)}</S.Label>
 					<Button
 						text="Desconectar"
 						theme="transparent"

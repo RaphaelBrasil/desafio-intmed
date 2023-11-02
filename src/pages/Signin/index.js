@@ -17,7 +17,6 @@ const Signin = () => {
 		formState: { errors }
 	} = useForm();
 	const [showPassword, setShowPassword] = useState(false);
-	const [output, setOutput] = useState("");
 
 	const handleTogglePassword = () => {
 		setShowPassword(!showPassword);
@@ -25,14 +24,12 @@ const Signin = () => {
 
 	const onSubmit = async (data) => {
 		try {
-			setOutput(JSON.stringify(data, null, 3));
 			await signin(data.email, data.password);
 			navigate("/home");
 		} catch (err) {
 			setError("password", {
 				message: "E-mail ou senha incorretos"
 			});
-			setOutput(JSON.stringify(errors));
 		}
 	};
 
@@ -75,7 +72,6 @@ const Signin = () => {
 					<Button text="Acessar" type="submit" />
 				</S.ButtonContainer>
 			</S.FormContent>
-			<pre>{output}</pre>
 		</S.Container>
 	);
 };
