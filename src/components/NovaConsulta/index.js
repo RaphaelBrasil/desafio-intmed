@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as S from "./styles";
-import axios from "../../api/axios";
 import Button from "../../components/Button";
+import { ConsultaService } from "../../services/consultaService";
 
 const NovaConsulta = ({ options, setIsOpen, fetchData }) => {
 	const [selectedEspecialidade, setSelectedEspecialidade] = useState("");
@@ -44,19 +44,15 @@ const NovaConsulta = ({ options, setIsOpen, fetchData }) => {
 	const handleConfirmar = async () => {
 		try {
 			const userToken = JSON.parse(localStorage.getItem("user_token"));
-			await axios.post(
-				"/consultas",
-				JSON.stringify({ selectedDia, selectedHorario }),
-				{
-					headers: {
-						Authorization: `Token ${userToken.accessToken}`,
-						"Content-Type": "application/json"
-					},
-					withCredentials: true
-				}
+			await ConsultaService.createConsulta(
+				userToken,
+				selectedDia,
+				selectedHorario
 			);
 			fetchData();
-		} catch (error) {}
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const medicosFiltrados = medicos.filter(
@@ -67,46 +63,36 @@ const NovaConsulta = ({ options, setIsOpen, fetchData }) => {
 		(data) => data.medico.id === Number(selectedMedico)
 	);
 
-	const fetchEspecialidades = async () => {
-		try {
-			const userToken = JSON.parse(localStorage.getItem("user_token"));
-			const response = await axios.get("/especialidades", {
-				headers: {
-					Authorization: `Token ${userToken.accessToken}`
-				}
-			});
-			setEspecialidades(response.data);
-		} catch (error) {}
-	};
-
-	const fetchMedicos = async () => {
-		try {
-			const userToken = JSON.parse(localStorage.getItem("user_token"));
-			const response = await axios.get("/medicos", {
-				headers: {
-					Authorization: `Token ${userToken.accessToken}`
-				}
-			});
-			setMedicos(response.data);
-		} catch (error) {}
-	};
-
-	const fetchAgendas = async () => {
-		try {
-			const userToken = JSON.parse(localStorage.getItem("user_token"));
-			const response = await axios.get("/agendas", {
-				headers: {
-					Authorization: `Token ${userToken.accessToken}`
-				}
-			});
-			setAgendas(response.data);
-		} catch (error) {}
-	};
-
 	useEffect(() => {
-		fetchEspecialidades();
-		fetchMedicos();
-		fetchAgendas();
+		try {
+			const userToken = JSON.parse(localStorage.getItem("user_token"));
+
+			const fetchEspecialidades = async () => {
+				const especialidadesData =
+					await ConsultaService.fetchEspecialidades(userToken);
+				setEspecialidades(especialidadesData);
+			};
+
+			const fetchMedicos = async () => {
+				const medicosData = await ConsultaService.fetchMedicos(
+					userToken
+				);
+				setMedicos(medicosData);
+			};
+
+			const fetchAgendas = async () => {
+				const agendasData = await ConsultaService.fetchAgendas(
+					userToken
+				);
+				setAgendas(agendasData);
+			};
+
+			fetchEspecialidades();
+			fetchMedicos();
+			fetchAgendas();
+		} catch (error) {
+			console.error(error);
+		}
 	}, []);
 
 	return (
