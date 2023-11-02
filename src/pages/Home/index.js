@@ -39,7 +39,7 @@ const Home = () => {
 			Cell: ({ row }) => (
 				<Button
 					text="Desmarcar"
-					type="transparent"
+					theme="transparent"
 					size="small"
 					icon={
 						<FontAwesomeIcon
@@ -96,7 +96,7 @@ const Home = () => {
 					<S.Label>{user}</S.Label>
 					<Button
 						text="Desconectar"
-						type="transparent"
+						theme="transparent"
 						size="small"
 						onClick={() => {
 							signout();
