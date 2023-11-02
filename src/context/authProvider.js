@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { AuthService } from "../services/authService";
 import { SignupService } from "../services/signupService";
-import authInterceptor from "../services/authInterceptor";
+import authInterceptor from "../interceptors/authInterceptor";
 
 authInterceptor();
 

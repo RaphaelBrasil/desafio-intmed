@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Logo from "../../assets/logo.png";
-import SuccessPopup from "../../components/SuccessPopup";
+import PopupSuccess from "../../components/PopupSuccess";
 import * as S from "./styles";
 import useAuth from "../../hooks/useAuth";
 
@@ -93,7 +93,7 @@ const Signup = () => {
 					<Button text="Inscrever-se" type="submit" />
 				</S.FlexContainer>
 			</S.FormContent>
-			<SuccessPopup
+			<PopupSuccess
 				open={showSuccessPopup}
 				onClose={handleCloseSuccessPopup}
 			/>

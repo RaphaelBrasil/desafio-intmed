@@ -1,5 +1,5 @@
 import axios from "../api/axios";
-import authInterceptor from "../services/authInterceptor";
+import authInterceptor from "../interceptors/authInterceptor";
 
 authInterceptor();
 
