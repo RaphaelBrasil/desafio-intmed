@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -9,11 +8,12 @@ import {
 	PopoverContent
 } from "../../components/Popover";
 import Button from "../../components/Button";
-import NovaConsulta from "../../components/NovaConsulta";
+import FormularioNovaConsulta from "../../components/FormularioNovaConsulta";
 import TabelaDeDados from "../../components/TabelaDeDados";
 import Logo from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
 import * as S from "./styles";
+import { ConsultaService } from "../../services/consultaService";
 
 function capitalizeFirstLetter(string) {
 	return string.replace(/^\w/, (match) => match.toUpperCase());
@@ -62,30 +62,34 @@ const Home = () => {
 
 	const [dados, setDados] = useState([]);
 	const [user, setUser] = useState("");
+	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+	const [consultaIdToDelete, setConsultaIdToDelete] = useState(null);
+
 	const fetchData = async () => {
 		try {
-			const userToken = JSON.parse(localStorage.getItem("user_token"));
-			const response = await axios.get("/consultas", {
-				headers: {
-					Authorization: `Token ${userToken.accessToken}`
-				}
-			});
-			setUser(userToken.username);
-			setDados(response.data);
+			const result = await ConsultaService.fetchData();
+			setUser(result.username);
+			setDados(result.data);
 		} catch (error) {}
 	};
 
-	const handleDeleteConsulta = async (consultaId) => {
+	const handleDeleteConsulta = (consultaId) => {
+		// Configure o ID da consulta que será excluída e mostre o popup de confirmação
+		setConsultaIdToDelete(consultaId);
+		setShowConfirmationPopup(true);
+	};
+
+	const confirmDeleteConsulta = async () => {
 		try {
-			const userToken = JSON.parse(localStorage.getItem("user_token"));
-			await axios.delete(`/consultas/${consultaId}`, {
-				headers: {
-					Authorization: `Token ${userToken.accessToken}`
-				}
-			});
+			await ConsultaService.handleDeleteConsulta(consultaIdToDelete);
 			// Após a exclusão bem-sucedida, chame a função para buscar os dados atualizados.
 			fetchData();
-		} catch (error) {}
+		} catch (error) {
+			// Lida com erros, se necessário
+		} finally {
+			// Fecha o popup de confirmação
+			setShowConfirmationPopup(false);
+		}
 	};
 
 	useEffect(() => {
@@ -97,7 +101,7 @@ const Home = () => {
 			<S.Content>
 				<S.Header>
 					<S.Img src={Logo} alt="Logo" />
-					<S.Label>{capitalizeFirstLetter(user)}</S.Label>
+					<S.UserLabel>{capitalizeFirstLetter(user)}</S.UserLabel>
 					<Button
 						text="Desconectar"
 						theme="transparent"
@@ -108,9 +112,9 @@ const Home = () => {
 						}}
 					/>
 				</S.Header>
-				<S.Box>
+				<S.WrapperBody>
 					<S.Body>
-						<S.Strong>Consulta Clínica</S.Strong>
+						<S.StyledStrong>Consulta Clínica</S.StyledStrong>
 						<Popover>
 							<PopoverTrigger
 								style={{
@@ -118,26 +122,45 @@ const Home = () => {
 									border: "none"
 								}}
 							>
-								<S.Div>
+								<S.StyledPseudoButton>
 									<FontAwesomeIcon
 										icon={faPlus}
 										style={{
 											marginRight: "8px",
-											marginLeft: "2px"
+											marginBottom: "2px"
 										}}
 									/>
 									Nova Consulta
-								</S.Div>
+								</S.StyledPseudoButton>
 							</PopoverTrigger>
 							<PopoverContent>
-								<NovaConsulta fetchData={fetchData} />
+								<FormularioNovaConsulta fetchData={fetchData} />
 							</PopoverContent>
 						</Popover>
 					</S.Body>
 					<TabelaDeDados columns={columns} data={dados} />
-				</S.Box>
-			</S.Content>
-			<S.Footer></S.Footer>
+				</S.WrapperBody>
+			</S.Content>{" "}
+			{showConfirmationPopup && (
+				<S.ConfirmationPopup>
+					<S.ConfirmationMessage>
+						{`Deseja realmente desmarcar a consulta ${consultaIdToDelete}?`}
+						<S.ConfirmationWrapper>
+							<Button
+								text="Cancelar"
+								theme="secondary"
+								onClick={() => setShowConfirmationPopup(false)}
+							/>
+							<Button
+								text="Confirmar"
+								theme="primary"
+								onClick={confirmDeleteConsulta}
+							/>
+						</S.ConfirmationWrapper>
+					</S.ConfirmationMessage>
+				</S.ConfirmationPopup>
+			)}
+			<S.Footer />
 		</S.Container>
 	);
 };

@@ -1,5 +1,7 @@
-// styles.js
 import styled from "styled-components";
+
+const primaryColor = "#49b4bb";
+const grayColor = "#a8a8a8";
 
 export const PopupContainer = styled.div`
 	position: fixed;
@@ -7,32 +9,28 @@ export const PopupContainer = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(
-		0,
-		0,
-		0,
-		0.5
-	); /* Fundo escuro para destacar o pop-up */
+	background-color: rgba(0, 0, 0, 0.5);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	z-index: 999; /* Para manter o pop-up na parte superior */
+	border-radius: 4px;
+	z-index: 999;
 `;
 
 export const PopupContent = styled.div`
-	background-color: #fff; /* Fundo branco */
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	padding: 20px;
-	border-radius: 5px;
+	border-radius: 4px;
 	text-align: center;
 	max-width: 400px;
-	width: 100%;
+	width: 90%;
 	font-family: "Roboto-Regular", Helvetica;
 	font-size: 13px;
 	font-weight: 400;
-	line-height: normal;
-	color: #444; /* Cor preta */
+	line-height: 1.5;
 	position: relative;
+	margin: 20px;
 `;
 
 export const CloseButton = styled.button`
@@ -41,22 +39,18 @@ export const CloseButton = styled.button`
 	font-family: "Roboto-Bold", Helvetica;
 	font-size: 18px;
 	font-weight: 700;
-	line-height: normal;
 	cursor: pointer;
-	color: #49b4bb; /* Cor primária */
-	margin-top: 20px;
+	color: ${primaryColor};
 `;
 
-export const Title = styled.h2`
+export const StyledIcon = styled.h2`
 	font-size: 24px;
-	color: #444; /* Cor preta */
 	margin-bottom: 10px;
+	color: ${primaryColor};
 `;
 
 export const Message = styled.p`
 	font-size: 16px;
-	color: #a8a8a8; /* Cor cinza-2 */
+	color: ${grayColor};
 	margin-bottom: 20px;
 `;
-
-// Adicione outros estilos conforme necessário

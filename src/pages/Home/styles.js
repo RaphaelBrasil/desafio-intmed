@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
 	display: flex;
 	align-items: center;
-	align-content: space-around;
+	align-content: center;
 	flex-direction: column;
 	margin-top: 15px;
 `;
@@ -27,18 +27,16 @@ export const Img = styled.img`
 	align-self: flex-start;
 `;
 
-export const Label = styled.label`
+export const UserLabel = styled.div`
 	font-size: 13px;
 	color: #a8a8a8;
 	display: flex;
 	align-items: center;
-	flex-direction: row;
+
 	height: 20px;
 `;
 
-export const Strong = styled.strong`
-	//cursor: pointer;
-
+export const StyledStrong = styled.strong`
 	a {
 		text-decoration: none;
 		color: #a8a8a8;
@@ -48,9 +46,8 @@ export const Strong = styled.strong`
 export const Header = styled.div`
 	display: flex;
 	align-items: center;
-	align-coontent: center;
+	align-content: center;
 	justify-content: space-between;
-	flex-direction: row;
 	width: 100%;
 	outline: none;
 `;
@@ -60,7 +57,7 @@ export const Footer = styled.div`
 	z-index: -1;
 `;
 
-export const Box = styled.div`
+export const WrapperBody = styled.div`
 	height: 100%;
 	width: 99%;
 	background-color: #ffffff;
@@ -75,7 +72,6 @@ export const Box = styled.div`
 export const Body = styled.div`
 	display: flex;
 	justify-content: space-between;
-	flex-direction: row;
 	width: 100%;
 	gap: 10px;
 	margin-top: 20px;
@@ -85,17 +81,15 @@ export const Body = styled.div`
 export const TableWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
-	flex-direction: row;
 	width: 100%;
 	padding: 5px;
 	margin-top: 20px;
 `;
 
-export const Div = styled.div`
+export const StyledPseudoButton = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: row;
 	outline: none;
 	border: none;
 	border-radius: 8px;
@@ -123,4 +117,41 @@ export const Div = styled.div`
 				? "transparent"
 				: "#90D3D7"};
 	}
+`;
+
+export const ConfirmationPopup = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 999;
+`;
+
+export const ConfirmationMessage = styled.div`
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	border-radius: 4px;
+	text-align: center;
+	max-width: 400px;
+	width: 100%;
+	font-family: "Roboto-Regular", Helvetica;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: normal;
+	color: #444;
+	position: relative;
+`;
+
+export const ConfirmationWrapper = styled.div`
+	border-radius: 4px;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
 `;

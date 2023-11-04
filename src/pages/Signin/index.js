@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
@@ -16,11 +16,6 @@ const Signin = () => {
 		setError,
 		formState: { errors }
 	} = useForm();
-	const [showPassword, setShowPassword] = useState(false);
-
-	const handleTogglePassword = () => {
-		setShowPassword(!showPassword);
-	};
 
 	const onSubmit = async (data) => {
 		try {
@@ -51,12 +46,12 @@ const Signin = () => {
 					type="password"
 					placeholder="Senha"
 					{...register("password")}
-					showPassword={showPassword}
-					onClick={handleTogglePassword}
 				/>
-
 				<S.CheckContainer>
-					<Input type="checkbox" {...register("rememberMe")} />
+					<S.CustomCheckbox>
+						<input type="checkbox" {...register("rememberMe")} />
+						<span className="checkmark"></span>
+					</S.CustomCheckbox>
 					<S.Label>Lembrar minha senha</S.Label>
 				</S.CheckContainer>
 

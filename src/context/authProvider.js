@@ -32,7 +32,13 @@ export const AuthProvider = ({ children }) => {
 		localStorage.removeItem("user_token");
 	};
 
-	const authValue = { user, signed: !!user, signin, signup, signout };
+	const authValue = {
+		user,
+		signed: !!user || !!localStorage.getItem("user_token"),
+		signin,
+		signup,
+		signout
+	};
 
 	return (
 		<AuthContext.Provider value={authValue}>

@@ -55,7 +55,6 @@ export const FlexContainer = styled.div`
 	align-items: center;
 	align-coontent: center;
 	justify-content: space-between;
-	flex-direction: row;
 	width: 100%;
 	outline: none;
 `;

@@ -21,7 +21,6 @@ export const PopoverContent = styled.div`
 	min-width: 200px;
 	border-radius: 4px;
 	background-color: #ffffff;
-	border: 1px solid #a8a8a8;
 `;
 
 export const SelectWrapper = styled.div`
@@ -38,7 +37,6 @@ export const ButtonWrapper = styled.div`
 	align-items: flex-start;
 	align-content: center;
 	justify-content: space-between;
-	flex-direction: row;
 	width: 100%;
 	margin-bottom: 20px;
 	outline: none;
@@ -53,9 +51,17 @@ export const Select = styled.select`
 	background-color: #ffffff;
 	border: 1px solid #a8a8a8;
 	cursor: pointer;
+	color: #a8a8a8;
 
 	&::-ms-expand {
 		display: none;
+	}
+
+	&:disabled {
+		background-color: #f8f8f8;
+	}
+	&:hover {
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	}
 `;
 

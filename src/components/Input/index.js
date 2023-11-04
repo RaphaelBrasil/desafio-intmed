@@ -17,7 +17,11 @@ const MyForwardedInput = (
 	return (
 		<S.Wrapper>
 			{type === "password" ? (
-				<S.ToggleButton onClick={handleTogglePassword}>
+				<S.ToggleButton
+					onClick={handleTogglePassword}
+					tabIndex="-1"
+					type="button"
+				>
 					<FontAwesomeIcon
 						icon={showPassword ? faEyeSlash : faEye}
 						style={{ color: "#a8a8a8" }}
@@ -26,7 +30,7 @@ const MyForwardedInput = (
 			) : (
 				<></>
 			)}
-			<S.Input
+			<S.StyledInput
 				ref={ref}
 				value={value}
 				name={name}

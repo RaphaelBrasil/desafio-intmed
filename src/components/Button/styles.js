@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
 	outline: none;
 	border: none;
 	border-radius: 8px;
@@ -27,5 +27,14 @@ export const Button = styled.button`
 				: props.theme === "transparent"
 				? "transparent"
 				: "#90D3D7"};
+		color: ${(props) =>
+			props.theme === "secondary" || props.theme === "transparent"
+				? "#67c7cf"
+				: "white"};
+	}
+	&:disabled {
+		background-color: #ccc; /* Define a cor de fundo para o estado "disabled" */
+		color: #999; /* Define a cor do texto para o estado "disabled" */
+		cursor: not-allowed; /* Altera o cursor para "not-allowed" quando desativado */
 	}
 `;

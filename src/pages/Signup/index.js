@@ -96,6 +96,9 @@ const Signup = () => {
 			<PopupSuccess
 				open={showSuccessPopup}
 				onClose={handleCloseSuccessPopup}
+				title={"Tudo certo!"}
+				message={"Seu cadastro foi realizado com sucesso"}
+				closeButton={"Retornar à pagina de Login"}
 			/>
 		</S.Container>
 	);

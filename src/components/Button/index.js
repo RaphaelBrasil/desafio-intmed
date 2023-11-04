@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "./styles";
+import { StyledButton } from "./styles";
 
 const Button = ({
 	text,
@@ -7,13 +7,20 @@ const Button = ({
 	type,
 	theme = "primary",
 	icon = <></>,
-	size = "big"
+	size = "big",
+	disabled
 }) => {
 	return (
-		<S.Button type={type} size={size} onClick={onClick} theme={theme}>
+		<StyledButton
+			type={type}
+			size={size}
+			onClick={onClick}
+			theme={theme}
+			disabled={disabled}
+		>
 			{icon}
 			{text}
-		</S.Button>
+		</StyledButton>
 	);
 };
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Input = styled.input`
+export const StyledInput = styled.input`
 	outline: none;
 	padding: 5px 5px;
 	height: 40px;
@@ -8,6 +8,10 @@ export const Input = styled.input`
 	border-radius: 4px;
 	background-color: #ffffff;
 	border: 1px solid #a8a8a8;
+
+	&:hover {
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	}
 
 	&[type="password"] {
 		box-sizing: border-box;
@@ -22,6 +26,7 @@ export const Input = styled.input`
 
 	&:checked {
 		accent-color: #49b4bb;
+		color: #49b4bb;
 	}
 `;
 
